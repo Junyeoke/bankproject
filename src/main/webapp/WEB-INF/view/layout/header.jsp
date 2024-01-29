@@ -22,9 +22,6 @@
 <div class="jumbotron text-center banner--img" style="margin-bottom:0">
   <h1>my bank</h1>
   <p>최첨단 은행 관리 시스템</p>
-  <h3>
-  
-  </h3>
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -60,6 +57,15 @@
 <div class="container" style="margin-top:30px">
   <div class="row">
     <div class="col-sm-4">
+    <h3>
+    <c:choose>
+        <c:when test="${principal != null}">
+            반갑습니다, ${principal.username}님!
+        </c:when>
+        <c:otherwise>
+        </c:otherwise>
+    </c:choose>
+    </h3>
       <h2>About Me</h2>
       <h5>Photo of me:</h5>
       <div class="m--profile"></div>

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tenco.bank.dto.SignInFormDto;
 import com.tenco.bank.dto.SignUpFormDto;
-import com.tenco.bank.handler.exception.CustomRestfullException;
+import com.tenco.bank.handler.exception.CustomRestfulException;
 import com.tenco.bank.repository.entity.User;
 import com.tenco.bank.service.UserService;
 
@@ -47,16 +47,16 @@ public class UserController {
 		// 1. 인증검사 x
 		// 2. 유효성 검사
 		if(dto.getUsername() == null || dto.getUsername().isEmpty()) {
-			throw new CustomRestfullException("username을 입력하세요", 
+			throw new CustomRestfulException("username을 입력하세요", 
 					HttpStatus.BAD_REQUEST);
 		}
 		
 		if(dto.getPassword() == null || dto.getPassword().isEmpty()) {
-			throw new CustomRestfullException("password를 입력하세요", 
+			throw new CustomRestfulException("password를 입력하세요", 
 					HttpStatus.BAD_REQUEST);
 		}
 		if(dto.getFullname() == null || dto.getFullname().isEmpty()) {
-			throw new CustomRestfullException("fullname을 입력하세요", 
+			throw new CustomRestfulException("fullname을 입력하세요", 
 					HttpStatus.BAD_REQUEST);
 		}
 		
@@ -84,11 +84,11 @@ public class UserController {
 		
 		// 1. 유효성 검사
 		if(dto.getUsername() == null || dto.getUsername().isEmpty()) {
-			throw new CustomRestfullException("username을 입력하세요", HttpStatus.BAD_REQUEST);
+			throw new CustomRestfulException("username을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
 		
 		if(dto.getPassword() == null || dto.getPassword().isEmpty()) {
-			throw new CustomRestfullException("password을 입력하세요", HttpStatus.BAD_REQUEST);
+			throw new CustomRestfulException("password을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
 		
 		// 서비스 호출 예정
