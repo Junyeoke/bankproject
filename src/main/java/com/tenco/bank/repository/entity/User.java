@@ -15,5 +15,6 @@ public class User {
 	private Integer id;
 	private String username;
 	private String fullname;
+	private String password;
 	private Timestamp createdAt;
 }
