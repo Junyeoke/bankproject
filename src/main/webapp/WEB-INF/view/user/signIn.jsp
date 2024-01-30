@@ -10,11 +10,11 @@
 	<form action="/user/sign-in" method="post">
   <div class="form-group">
     <label for="username">username:</label>
-    <input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
+    <input type="text" name="username" class="form-control" placeholder="Enter username" id="username" value="주녘">
   </div>
   <div class="form-group">
     <label for="pwd">password:</label>
-    <input type="password" name="password" class="form-control" placeholder="Enter password" id="pwd">
+    <input type="password" name="password" class="form-control" placeholder="Enter password" id="pwd" value="1234">
   </div>
   <!-- 과제 : 이벤트 전파 속성 - 버블링 뭔가? 캡처링 이란? -->
   <button type="submit" class="btn btn-primary">로그인</button>

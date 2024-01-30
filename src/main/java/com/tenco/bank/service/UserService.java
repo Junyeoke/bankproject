@@ -11,6 +11,7 @@ import com.tenco.bank.handler.exception.CustomRestfulException;
 import com.tenco.bank.handler.exception.UnAuthorizedException;
 import com.tenco.bank.repository.entity.User;
 import com.tenco.bank.repository.interfaces.UserRepository;
+import com.tenco.bank.utils.Define;
 
 @Service // IoC 대상
 public class UserService {
@@ -41,7 +42,7 @@ public class UserService {
 		
 		int result = userRepository.insert(user);
 		if(result != 1) {
-			throw new CustomRestfulException("회원 가입 실패", 
+			throw new CustomRestfulException(Define.FAIL_TO_CREATE_ACCOUNT, 
 									HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -62,7 +63,7 @@ public class UserService {
 		User userEntity =  userRepository.findByUsernameAndPassword(user);
 		
 		if(userEntity == null) {
-			throw new UnAuthorizedException("인증된 사용자가 아닙니다.", 
+			throw new UnAuthorizedException(Define.NOT_AN_AUTHENTICATED_USER, 
 					HttpStatus.UNAUTHORIZED);
 		}
 		

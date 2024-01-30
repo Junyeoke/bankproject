@@ -1,5 +1,7 @@
 package com.tenco.bank.controller;
 
+import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import com.tenco.bank.dto.SignUpFormDto;
 import com.tenco.bank.handler.exception.CustomRestfulException;
 import com.tenco.bank.repository.entity.User;
 import com.tenco.bank.service.UserService;
+import com.tenco.bank.utils.Define;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -47,16 +50,16 @@ public class UserController {
 		// 1. 인증검사 x
 		// 2. 유효성 검사
 		if(dto.getUsername() == null || dto.getUsername().isEmpty()) {
-			throw new CustomRestfulException("username을 입력하세요", 
+			throw new CustomRestfulException(Define.ENTER_YOUR_USERNAME, 
 					HttpStatus.BAD_REQUEST);
 		}
 		
 		if(dto.getPassword() == null || dto.getPassword().isEmpty()) {
-			throw new CustomRestfulException("password를 입력하세요", 
+			throw new CustomRestfulException(Define.ENTER_YOUR_PASSWORD, 
 					HttpStatus.BAD_REQUEST);
 		}
 		if(dto.getFullname() == null || dto.getFullname().isEmpty()) {
-			throw new CustomRestfulException("fullname을 입력하세요", 
+			throw new CustomRestfulException(Define.ENTER_YOUR_FULLNAME, 
 					HttpStatus.BAD_REQUEST);
 		}
 		
@@ -77,18 +80,18 @@ public class UserController {
 	/**
 	 * 로그인 요청 처리
 	 * @param SignInFormDto
-	 * @return 추후 account/list 페이지로 이동예정
+	 * @return account/list.jsp
 	 */
 	@PostMapping("/sign-in")
 	public String signInProc(SignInFormDto dto) {
 		
 		// 1. 유효성 검사
 		if(dto.getUsername() == null || dto.getUsername().isEmpty()) {
-			throw new CustomRestfulException("username을 입력하세요", HttpStatus.BAD_REQUEST);
+			throw new CustomRestfulException(Define.ENTER_YOUR_USERNAME, HttpStatus.BAD_REQUEST);
 		}
 		
 		if(dto.getPassword() == null || dto.getPassword().isEmpty()) {
-			throw new CustomRestfulException("password을 입력하세요", HttpStatus.BAD_REQUEST);
+			throw new CustomRestfulException(Define.ENTER_YOUR_PASSWORD, HttpStatus.BAD_REQUEST);
 		}
 		
 		// 서비스 호출 예정
@@ -96,11 +99,9 @@ public class UserController {
 		
 		// 세션에 사용자 정보 저장: 로그인이 성공하면, httpSession 객체를 사용하여 세션에 사용자 정보를 저장합니다. 
 		// 여기서 "principal"이라는 이름으로 사용자 객체(user)를 저장함.
-		httpSession.setAttribute("principal", user);
-		
-		// 로그인 완료 ---> 페이지 결정(account/list)
-		// todo 수정예정(현재 접근 경로 없음)		
-		return "redirect:/user/sign-in";
+		httpSession.setAttribute(Define.PRINCIPAL, user);
+			
+		return "redirect:/account/list";
 	}
 	
 	
