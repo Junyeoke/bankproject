@@ -134,7 +134,7 @@ public class AccountService {
 		// 6. history에 거래내역 등록
 		History history = new History();
 		history.setAmount(dto.getAmount());
-		history.setWBalance(null); // 출금 계좌의 잔액을 가져와야하기 때문에
+		history.setWBalance(null); // 입금 계좌의 잔액을 가져와야하기 때문에
 		history.setDBalance(accountEntity.getBalance());
 		history.setWAccountId(null);
 		history.setDAccountId(accountEntity.getId());
