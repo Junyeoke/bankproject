@@ -18,6 +18,8 @@ public interface AccountRepository {
 	// 계좌 1건 상세 조회
 	public Account findByNumber(String number);
 	
+	// 총자산 조회
+	public Account findAllByAssets(Integer userId);
 	
 
 }

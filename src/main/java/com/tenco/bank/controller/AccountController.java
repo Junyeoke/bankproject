@@ -1,5 +1,7 @@
 package com.tenco.bank.controller;
 
+import java.awt.datatransfer.Transferable;
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tenco.bank.dto.AccountSaveFormDto;
 import com.tenco.bank.dto.DepositFormDto;
+import com.tenco.bank.dto.TransferFormDto;
 import com.tenco.bank.dto.WithdrawFormDto;
 import com.tenco.bank.handler.exception.CustomRestfulException;
 import com.tenco.bank.handler.exception.UnAuthorizedException;
@@ -89,21 +92,26 @@ public class AccountController {
 	 */
 	@GetMapping({ "/list", "/" })
 	public String listPage(Model model) {
-		// 1. 인증 검사
-		User principal = (User) session.getAttribute(Define.PRINCIPAL); // 다운 캐스팅
-		if (principal == null) {
-			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED);
-		}
+		 // 1. 인증 검사
+	    User principal = (User) session.getAttribute(Define.PRINCIPAL); // 다운 캐스팅
+	    if (principal == null) {
+	        throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED);
+	    }
 
-		// 경우의 수 유, 무
-		List<Account> accountList = accountService.readAccountListByUserId(principal.getId());
+	    // 경우의 수 유, 무
+	    List<Account> accountList = accountService.readAccountListByUserId(principal.getId());
+	    // 사용자의 모든 계좌의 총 자산 조회
+        Account accountAssets = accountService.findAllByAssets(principal.getId());
 
-		if (accountList.isEmpty()) {
-			model.addAttribute("accountList", null);
-		} else {
-			model.addAttribute("accountList", accountList);
-		}
-		return "account/list";
+        if (accountList.isEmpty()) {
+            model.addAttribute("accountList", null);
+            model.addAttribute("accountAssets", null);
+        } else {
+            model.addAttribute("accountList", accountList);
+            model.addAttribute("accountAssets", accountAssets);
+        }
+
+	    return "account/list";
 	}
 
 	// 출금페이지 요청
@@ -167,23 +175,67 @@ public class AccountController {
 		if (principal == null) {
 			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED);
 		}
-		
+
 		// 2. 유효성 검사
-		if(dto.getAmount() == null) {
+		if (dto.getAmount() == null) {
 			throw new CustomRestfulException(Define.ENTER_YOUR_BALANCE, HttpStatus.BAD_REQUEST);
 		}
-		if(dto.getAmount().longValue() <= 0) {
+		if (dto.getAmount().longValue() <= 0) {
 			throw new CustomRestfulException(Define.D_BALANCE_VALUE, HttpStatus.BAD_REQUEST);
 		}
-		if(dto.getDAccountNumber() == null || dto.getDAccountNumber().isEmpty()) {
+		if (dto.getDAccountNumber() == null || dto.getDAccountNumber().isEmpty()) {
 			throw new CustomRestfulException(Define.ENTER_YOUR_ACCOUNT_NUMBER, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		// 서비스 호출
 		accountService.updateAccountDeposit(dto, principal.getId());
+
+		return "redirect:/account/list";
+
+	}
+
+	// 이체 페이지 요청
+	@GetMapping("/transfer")
+	public String transferPage() {
+		// 1. 인증 검사
+		User principal = (User) session.getAttribute(Define.PRINCIPAL); // 다운 캐스팅
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED);
+		}
+
+		return "account/transfer";
+	}
+
+	// 이체 요청 로직
+	@PostMapping("/transfer")
+	public String transferProc(TransferFormDto dto) {
+		// 1. 인증 검사
+		User principal = (User) session.getAttribute(Define.PRINCIPAL); // 다운 캐스팅
+		if (principal == null) {
+			throw new UnAuthorizedException(Define.ENTER_YOUR_LOGIN, HttpStatus.UNAUTHORIZED);
+		}
+		
+		// 2. 유효성 검사
+		if (dto.getAmount() == null) {
+			throw new CustomRestfulException(Define.ENTER_YOUR_BALANCE, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getAmount().longValue() <= 0) {
+			throw new CustomRestfulException(Define.D_BALANCE_VALUE, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getDAccountNumber() == null || dto.getDAccountNumber().isEmpty()) {
+			throw new CustomRestfulException(Define.ENTER_YOUR_ACCOUNT_NUMBER, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getWAccountNumber() == null || dto.getWAccountNumber().isEmpty()) {
+			throw new CustomRestfulException(Define.ENTER_YOUR_ACCOUNT_NUMBER, HttpStatus.BAD_REQUEST);
+		}
+		if (dto.getPassword() == null || dto.getPassword().isEmpty()) {
+			throw new CustomRestfulException(Define.ENTER_YOUR_PASSWORD, HttpStatus.BAD_REQUEST);
+		}
+		
+		// 3. 서비스 호출
+		accountService.updateAccountTransfer(dto, principal.getId());
 		
 		return "redirect:/account/list";
-		
 	}
 
 }

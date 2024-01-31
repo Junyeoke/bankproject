@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tenco.bank.dto.AccountSaveFormDto;
 import com.tenco.bank.dto.DepositFormDto;
+import com.tenco.bank.dto.TransferFormDto;
 import com.tenco.bank.dto.WithdrawFormDto;
 import com.tenco.bank.handler.exception.CustomRestfulException;
 import com.tenco.bank.repository.entity.Account;
@@ -61,6 +62,11 @@ public class AccountService {
 		// select --> 0 이거나 aa, a, ... 예외처리 X
 		return accountRepository.findAllByUserId(principalId);
 	}
+	
+	// 총 자산 보기
+	public Account findAllByAssets(Integer userId) {
+        return accountRepository.findAllByAssets(userId);
+    }
 
 	// 출금 기능 만들기
 	// 1. 계좌 존재 여부 확인 -- select
@@ -134,15 +140,71 @@ public class AccountService {
 		// 6. history에 거래내역 등록
 		History history = new History();
 		history.setAmount(dto.getAmount());
-		history.setWBalance(null); // 입금 계좌의 잔액을 가져와야하기 때문에
+		history.setWBalance(null); 
 		history.setDBalance(accountEntity.getBalance());
 		history.setWAccountId(null);
 		history.setDAccountId(accountEntity.getId());
-		
+
 		int rowResultCount = historyRepository.insert(history);
 		if (rowResultCount != 1) {
 			throw new CustomRestfulException("정상 처리 되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	// 이체 기능 만들기
+	//	1. 출금 계좌 존재여부 - select
+	//	2. 입금 계좌 존재여부 - select
+	//	3. 출금 계좌 본인 소유 확인
+	//	4. 본인소유가 맞다면 → 출금 계좌 비번 확인
+	//	5. 출금 계좌 잔액 확인 - O
+	//	6. 출금 계좌 잔액 수정 - U
+	//	7. 입금 계좌 잔액 수정 - U
+	//	8. 거래 내역 등록 처리 (이체 내역 쿼리 테스트) - I
+	//	9. 트랜잭션 처리
+	public void updateAccountTransfer(TransferFormDto dto, Integer principalId) {
+		
+		// 1. 출금 계좌 존재여부
+		Account WithdrawAccountEntity = accountRepository.findByNumber(dto.getWAccountNumber());
+		if (WithdrawAccountEntity == null) {
+			throw new CustomRestfulException(Define.NOT_EXIST_ACCOUNT, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		// 2. 입금 계좌 존재여부
+		Account DepositAccountEntity = accountRepository.findByNumber(dto.getDAccountNumber());
+		if (DepositAccountEntity == null) {
+			throw new CustomRestfulException(Define.NOT_EXIST_ACCOUNT, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		// 3. 출금 계좌 본인 소유 확인
+		WithdrawAccountEntity.checkOwner(principalId);
+		
+		// 4. 출금 계좌 비번 확인
+		WithdrawAccountEntity.checkPassword(dto.getPassword());
+		
+		// 5. 출금 계좌 잔액 확인
+		WithdrawAccountEntity.checkBalance(dto.getAmount());
+		
+		// 6. 출금 계좌 잔액 수정
+		WithdrawAccountEntity.withdraw(dto.getAmount());
+		accountRepository.updateById(WithdrawAccountEntity);
+		
+		// 7. 입금 계좌 잔액 수정
+		DepositAccountEntity.deposit(dto.getAmount());
+		accountRepository.updateById(DepositAccountEntity);
+		
+		// 8. 거래 내역 등록 처리
+		History history = new History();
+		history.setAmount(dto.getAmount());
+		history.setWBalance(WithdrawAccountEntity.getBalance());
+		history.setDBalance(DepositAccountEntity.getBalance());
+		history.setWAccountId(WithdrawAccountEntity.getId());
+		history.setDAccountId(DepositAccountEntity.getId());
+
+		int rowResultCount = historyRepository.insert(history);
+		if (rowResultCount != 1) {
+			throw new CustomRestfulException("정상 처리 되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 }

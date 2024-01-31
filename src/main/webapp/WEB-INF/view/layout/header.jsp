@@ -58,17 +58,19 @@
 <div class="container" style="margin-top:30px">
   <div class="row">
     <div class="col-sm-4">
-    <div class="alert alert-primary" role="alert">
+   
  <h3>
     <c:choose>
         <c:when test="${principal != null}">
+         <div class="alert alert-primary" role="alert">
             반갑습니다, ${principal.username}님!
+            </div>
         </c:when>
         <c:otherwise>
         </c:otherwise>
     </c:choose>
     </h3>
-</div>
+
     
       <h2>About Me</h2>
       <h5>Photo of me:</h5>
@@ -90,7 +92,7 @@
           <a class="nav-link" href="/account/deposit">입금</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">이체</a>
+          <a class="nav-link" href="/account/transfer">이체</a>
         </li>
       </ul>
       <hr class="d-sm-none">

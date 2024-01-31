@@ -29,7 +29,7 @@ public class Account {
 	{								   // 메소드 바디
 		// 방어적 코드 작성 - to do
 		if (amount > balance || amount <= 0) {
-			// 잔액보다 많다 또는 금액 잘못 적었다. 이런거 던지기
+			throw new CustomRestfulException("출금 금액을 확인하세요.", HttpStatus.BAD_REQUEST);
 		}
 		this.balance -= amount;
 	}
