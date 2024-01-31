@@ -4,7 +4,8 @@
     <%@ include file="/WEB-INF/view/layout/header.jsp" %>
     
 <div class="col-sm-8">
-	<h2>로그인</h2>
+<div class= "bg-light p-md-5">
+<h2>로그인</h2>
 	<h5>어서오세요, 환영합니다.</h5>
 	<!-- 로그인만 예외로 post -->
 	<form action="/user/sign-in" method="post">
@@ -20,8 +21,11 @@
   <button type="submit" class="btn btn-primary">로그인</button>
 </form>
 </div>
+	
+</div>
 
 </br>
+</div>
 </div>
     
     
