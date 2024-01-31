@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +81,7 @@
           <a class="nav-link" href="/account/list">계좌 목록</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">출금</a>
+          <a class="nav-link" href="/account/withdraw">출금</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">입금</a>
