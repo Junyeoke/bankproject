@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ include file="/WEB-INF/view/layout/sidebar.jsp"%>
 
 <div class="col-sm-8">
 	<div class="bg-light p-md-5">

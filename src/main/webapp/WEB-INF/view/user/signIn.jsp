@@ -5,7 +5,7 @@
     
     
     
-<div class="col-sm-8">
+<div class="container p-5 col-sm-8">
 <div class= "bg-light p-md-5">
 <h2>로그인</h2>
 	<h5>어서오세요, 환영합니다.</h5>

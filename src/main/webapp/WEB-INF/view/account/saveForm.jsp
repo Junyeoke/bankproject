@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 <!-- haeder.jsp -->
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ include file="/WEB-INF/view/layout/sidebar.jsp"%>
 
-<div class="col-sm-8">
+<div class="container col-sm-8">
 	<div class="bg-light p-md-5">
 
 		<h2>계좌 생성 페이지(인증)</h2>
@@ -20,7 +21,7 @@
 					id="pwd" value="1234">
 			</div>
 			<div class="form-group">
-				<label for="balance">입금 금액:</label> <input type="password"
+				<label for="balance">입금 금액:</label> <input type="text"
 					name="balance" class="form-control" placeholder="Enter balance"
 					id="balance" value="2000">
 			</div>
