@@ -25,33 +25,51 @@
 </style>
 </head>
 <body>
-
-
 	<div class="jumbotron text-center banner--img" style="margin-bottom: 0">
 		<h1>my bank</h1>
 		<p>최첨단 은행 관리 시스템</p>
 	</div>
 
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand" href="#">MENU</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#collapsibleNavbar">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		<!-- Brand -->
+		<a class="navbar-brand" href="/main/home">MyBank :: 최첨단 은행 관리시스템</a>
+
+
+		<!-- Links -->
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/main/home">홈으로</a>
+			</li>
+
+
+			<!-- Dropdown -->
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="/account/list"
+				id="navbardrop" data-toggle="dropdown"> 은행업무 </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="/account/save">계좌 생성</a> <a
+						class="dropdown-item" href="/account/list">계좌 목록</a> <a
+						class="dropdown-item" href="/account/withdraw">출금</a> <a
+						class="dropdown-item" href="/account/deposit">입금</a> <a
+						class="dropdown-item" href="/account/transfer">이체</a>
+				</div></li>
+		</ul>
+
+
+		<div class=" collapse navbar-collapse justify-content-end"
+			id="collapsibleNavbar">
 			<ul class="navbar-nav">
 
 				<c:choose>
 					<c:when test="${principal != null}">
-						<li class="nav-item"><a class="nav-link" href="/user/logout">로그아웃</a>
-						</li>
+						<li class="nav-item"><a class="nav-link" href="/user/logout"><button
+									type="button" class="btn btn-outline-light">로그아웃</button></a></li>
 					</c:when>
 
 					<c:otherwise>
-						<li class="nav-item"><a class="nav-link" href="/user/sign-in">로그인</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="/user/sign-up">회원가입</a>
-						</li>
+						<li class="nav-item"><a class="nav-link" href="/user/sign-in"><button
+									type="button" class="btn btn-outline-light">로그인</button></a></li>
+						<li class="nav-item"><a class="nav-link" href="/user/sign-up"><button
+									type="button" class="btn btn-outline-light">회원가입</button></a></li>
 					</c:otherwise>
 
 				</c:choose>
@@ -59,13 +77,6 @@
 			</ul>
 		</div>
 	</nav>
-
-
-
-
-
-
-
 
 
 
@@ -89,7 +100,7 @@
 				<div class="m--profile" style="border-radius: 5px"></div>
 
 				<div class="card mb-5 mt-3" style="width: auto;">
-					<div class="card-header">메뉴</div>
+					<div class="card-header">바로가기</div>
 					<ul class="list-group list-group-flush flex-column">
 						<li class="list-group-item"><a class="nav-link"
 							href="/account/save">계좌 생성</a></li>

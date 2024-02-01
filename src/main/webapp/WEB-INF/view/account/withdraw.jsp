@@ -21,7 +21,7 @@
     <input type="password" name="wAccountPassword" class="form-control" placeholder="출금 계좌 비밀번호 입력" id="wAccountPassword" value="1234">
   </div>
   
-  <button type="submit" class="btn btn-primary">출금</button>
+  <button type="submit" class="btn btn-outline-secondary">출금하기</button>
 </form>
 </div>
 	

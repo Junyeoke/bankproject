@@ -25,7 +25,7 @@
 					id="balance" value="2000">
 			</div>
 
-			<button type="submit" class="btn btn-primary">계좌 생성</button>
+			<button type="submit" class="btn btn-outline-secondary">계좌 생성</button>
 		</form>
 	</div>
 

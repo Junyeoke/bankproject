@@ -21,7 +21,7 @@
     <input type="text" name="fullname" class="form-control" placeholder="Enter fullname" id="fullname">
   </div>
   <!-- 과제 : 이벤트 전파 속성 - 버블링 뭔가? 캡처링 이란? -->
-  <button type="submit" class="btn btn-primary">회원가입</button>
+  <button type="submit" class="btn btn-outline-secondary">회원가입</button>
 </form>
 </div>
 	

@@ -26,7 +26,7 @@
   </div>
   
   
-  <button type="submit" class="btn btn-primary">이체하기</button>
+  <button type="submit" class="btn btn-outline-secondary">이체하기</button>
 </form>
 </div>
 </div>

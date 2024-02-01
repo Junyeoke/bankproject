@@ -3,6 +3,8 @@
  <!-- haeder.jsp -->
     <%@ include file="/WEB-INF/view/layout/header.jsp" %>
     
+    
+    
 <div class="col-sm-8">
 <div class= "bg-light p-md-5">
 <h2>로그인</h2>
@@ -18,7 +20,7 @@
     <input type="password" name="password" class="form-control" placeholder="Enter password" id="pwd" value="1234">
   </div>
   <!-- 과제 : 이벤트 전파 속성 - 버블링 뭔가? 캡처링 이란? -->
-  <button type="submit" class="btn btn-primary">로그인</button>
+  <button type="submit" class="btn btn-outline-secondary">로그인</button>
 </form>
 </div>
 	
