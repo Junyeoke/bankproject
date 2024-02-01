@@ -30,12 +30,12 @@
 
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<!-- Brand -->
-		<a class="navbar-brand" href="/main/home">MyBank :: 최첨단 은행 관리시스템</a>
+		<a class="navbar-brand" href="/home">MyBank :: 최첨단 은행 관리시스템</a>
 
 
 		<!-- Links -->
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/main/home">홈으로</a>
+			<li class="nav-item"><a class="nav-link" href="/home">홈으로</a>
 			</li>
 
 

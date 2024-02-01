@@ -49,7 +49,7 @@
 
 			<div class="section-title">
 				<h2>은행업무 서비스</h2>
-				<p>계좌를 개설하고, 입금하고, 송금할 수 있는 서비스를 제공합니다.</p>
+				<p>계좌를 개설하고 이체할 수 있는 서비스를 제공합니다.</p>
 			</div>
 
 			<div class="row justify-content-center">
