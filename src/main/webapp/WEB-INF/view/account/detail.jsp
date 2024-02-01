@@ -42,7 +42,7 @@
 		</div>
 
 		<table class="table table-striped text-center mt-3">
-			<thead>
+			<thead class="table-dark">
 				<tr>
 					<th>날짜</th>
 					<th>보낸이</th>

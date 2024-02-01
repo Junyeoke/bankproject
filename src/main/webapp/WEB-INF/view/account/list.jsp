@@ -13,7 +13,7 @@
 			<c:choose>
 				<c:when test="${accountList != null}">
 					<table class="table table-striped">
-						<thead>
+						<thead class="table-dark">
 							<tr>
 								<th>계좌 번호</th>
 								<th>잔액</th>
