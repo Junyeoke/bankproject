@@ -16,6 +16,9 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 <!-- 외부 스타일 시트 가져오기 -->
 <link rel="stylesheet" href="/css/styles.css">
 <style>
@@ -57,6 +60,15 @@
 		</div>
 	</nav>
 
+
+
+
+
+
+
+
+
+
 	<div class="container" style="margin-top: 30px">
 		<div class="row">
 			<div class="col-sm-4">
@@ -66,7 +78,8 @@
 					<c:choose>
 						<c:when test="${principal != null}">
 							<div class="alert alert-secondary" style="text-align: center;">
-								반갑습니다, ${principal.username}님! </br> 중단기 심화 - 은행 관리 시스템 예제</div>
+								반갑습니다, ${principal.username}님! </br> 중단기 심화 - 은행 관리 시스템 예제
+							</div>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
