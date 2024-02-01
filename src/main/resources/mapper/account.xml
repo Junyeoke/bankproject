@@ -31,6 +31,11 @@
 		resultType="com.tenco.bank.repository.entity.Account">
 		select * from account_tb where number = #{number}
 	</select>
+	
+	<select id="findByAccountId"
+		resultType="com.tenco.bank.repository.entity.Account">
+		select * from account_tb where id = #{id}
+	</select>
 
 	 <select id="findAllByAssets" resultType="com.tenco.bank.repository.entity.Account">
         SELECT SUM(account_tb.balance) AS balance

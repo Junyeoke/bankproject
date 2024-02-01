@@ -62,7 +62,7 @@
  <h3>
     <c:choose>
         <c:when test="${principal != null}">
-         <div class="alert alert-primary" role="alert">
+         <div class="alert alert-secondary" style="text-align:center;">
             반갑습니다, ${principal.username}님!
             </div>
         </c:when>

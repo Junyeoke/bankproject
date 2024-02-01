@@ -13,6 +13,7 @@ import com.tenco.bank.dto.TransferFormDto;
 import com.tenco.bank.dto.WithdrawFormDto;
 import com.tenco.bank.handler.exception.CustomRestfulException;
 import com.tenco.bank.repository.entity.Account;
+import com.tenco.bank.repository.entity.CustomHistoryEntity;
 import com.tenco.bank.repository.entity.History;
 import com.tenco.bank.repository.interfaces.AccountRepository;
 import com.tenco.bank.repository.interfaces.HistoryRepository;
@@ -161,6 +162,7 @@ public class AccountService {
 	//	7. 입금 계좌 잔액 수정 - U
 	//	8. 거래 내역 등록 처리 (이체 내역 쿼리 테스트) - I
 	//	9. 트랜잭션 처리
+	@Transactional
 	public void updateAccountTransfer(TransferFormDto dto, Integer principalId) {
 		
 		// 1. 출금 계좌 존재여부
@@ -186,11 +188,15 @@ public class AccountService {
 		
 		// 6. 출금 계좌 잔액 수정
 		WithdrawAccountEntity.withdraw(dto.getAmount());
-		accountRepository.updateById(WithdrawAccountEntity);
+		int resultRowCountWithdraw = accountRepository.updateById(WithdrawAccountEntity);
 		
 		// 7. 입금 계좌 잔액 수정
 		DepositAccountEntity.deposit(dto.getAmount());
-		accountRepository.updateById(DepositAccountEntity);
+		int resultRowCountDeposit = accountRepository.updateById(DepositAccountEntity);
+		
+		if(resultRowCountWithdraw != 1 && resultRowCountDeposit != 1) {
+			throw new CustomRestfulException("정상 처리되지 않았습니다." , HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
 		// 8. 거래 내역 등록 처리
 		History history = new History();
@@ -205,6 +211,24 @@ public class AccountService {
 			throw new CustomRestfulException("정상 처리 되지 않았습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+
+	/**
+	 * 단일 계좌 거래 내역 검색(전체, 입금, 출금)
+	 * @param type = [all, deposit, withdraw]
+	 * @param id (account_id)
+	 * @return 동적 쿼리 - list
+	 */
+	public List<CustomHistoryEntity> readHistoryListByAccount(String type, Integer id) {
+		
+		
+		return historyRepository.findByIdHistoryType(type, id);
+		
+	}
+	
+	// 단일 계좌 조회 - AccountById
+	public Account readByAccountId(Integer id) {
+		return accountRepository.findByAccountId(id);
 	}
 
 }
