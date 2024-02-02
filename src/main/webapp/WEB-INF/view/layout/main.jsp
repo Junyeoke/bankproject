@@ -61,7 +61,7 @@
 							<i class="bx bxl-dribbble"></i>
 						</div>
 						<h4>
-							<a href="/account/save">🪪 계좌 개설하기</a>
+							<a href="/account/save">🎫 계좌 개설하기</a>
 						</h4>
 						<p>차세대 은행, MyBank의 계좌를 개설해보세요!</p>
 					</div>
@@ -76,7 +76,7 @@
 							<i class="bx bx-file"></i>
 						</div>
 						<h4>
-							<a href="/account/list">🔎 나의 계좌보기</a>
+							<a href="/account/list">🔎 계좌조회</a>
 						</h4>
 						<p>나의 계좌의 잔고와 계좌들을 확인하세요!</p>
 					</div>

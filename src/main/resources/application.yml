@@ -15,7 +15,7 @@ spring:
     url: jdbc:mysql://localhost:3306/mybank?serverTimeZone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 1111   
+    password: asd1234   
             
 #  h2:
 #    console:

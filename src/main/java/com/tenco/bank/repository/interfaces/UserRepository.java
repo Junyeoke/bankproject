@@ -19,7 +19,7 @@ public interface UserRepository {
 	
 	
 	// 사용자 username으로 존재여부 확인
-	public User findByUsername(User user);
+	public User findByUsername(String username);
 	public User findByUsernameAndPassword(User user);
 
 }
