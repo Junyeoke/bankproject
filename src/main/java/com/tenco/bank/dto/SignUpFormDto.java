@@ -13,6 +13,7 @@ public class SignUpFormDto {
 	private String username;
 	private String password;
 	private String fullname;
+	private String email;
 	// 파일처리
 	private MultipartFile customFile;	// name 속성 값과 동일 해야한다.
 	private String originFileName;

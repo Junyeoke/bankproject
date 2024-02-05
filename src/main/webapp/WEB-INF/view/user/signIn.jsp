@@ -21,6 +21,7 @@
   </div>
   <!-- 과제 : 이벤트 전파 속성 - 버블링 뭔가? 캡처링 이란? -->
   <button type="submit" class="btn btn-outline-secondary">로그인</button>
+  <a href="/user/find-user">아이디 찾기</a>
 </form>
 </div>
 	

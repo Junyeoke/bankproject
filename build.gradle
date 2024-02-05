@@ -40,6 +40,9 @@ dependencies {
 	
 	// 암호화 
 	implementation 'org.springframework.security:spring-security-crypto'
+	
+	// 이메일 전송
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('bootBuildImage') {

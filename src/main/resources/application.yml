@@ -15,6 +15,20 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
+      
+# 이메일 전송 설정
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: indiefliker@gmail.com
+    password: scvfdnsdqlavzjxj
+    properties:   
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
         
   datasource:
     url: jdbc:mysql://localhost:3306/mybank?serverTimeZone=Asia/Seoul

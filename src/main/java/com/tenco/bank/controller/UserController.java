@@ -1,24 +1,32 @@
 package com.tenco.bank.controller;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tenco.bank.dto.FindUserInfoDto;
+import com.tenco.bank.dto.MailDto;
+import com.tenco.bank.dto.SendMailDto;
 import com.tenco.bank.dto.SignInFormDto;
 import com.tenco.bank.dto.SignUpFormDto;
 import com.tenco.bank.handler.exception.CustomRestfulException;
 import com.tenco.bank.repository.entity.User;
 import com.tenco.bank.service.UserService;
+import com.tenco.bank.utils.ApiUtils;
 import com.tenco.bank.utils.Define;
+
 
 import jakarta.servlet.http.HttpSession;
 
@@ -67,6 +75,9 @@ public class UserController {
 		if(dto.getFullname() == null || dto.getFullname().isEmpty()) {
 			throw new CustomRestfulException(Define.ENTER_YOUR_FULLNAME, 
 					HttpStatus.BAD_REQUEST);
+		}
+		if(dto.getEmail() == null || dto.getEmail().isEmpty()) {
+			throw new CustomRestfulException("이메일을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
 		
 		// 파일업로드 처리
@@ -156,6 +167,54 @@ public class UserController {
 		return "redirect:/user/sign-in";
 	}
 	
+	
+	// 회원정보 찾기 페이지 요청
+	@GetMapping("/find-user")
+	public String findUserPage() {
+		//  prefix: /WEB-INF/view/
+	    //  suffix: .jsp
+		return "user/findUser";
+	}
+	
+	
+	// 이메일 찾기
+		@PostMapping("/find-email")
+		@ResponseBody
+		public ResponseEntity<?> findEmail(FindUserInfoDto findUserInfoDTO) {
+
+			String email = this.userService.nameToEmail(findUserInfoDTO);
+
+			// 이름 유효성 검사
+			if(findUserInfoDTO.getUsername() == null || findUserInfoDTO.getUsername().isEmpty()) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiUtils.error("이름을 입력해주세요.", HttpStatus.BAD_REQUEST));
+			}
+			
+			// 이메일이 존재하지 않은 상태 유효성 검사
+			if(email == null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiUtils.error("이메일이 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
+			}
+			String userEmail = this.userService.userName(findUserInfoDTO.getUsername());
+
+			return ResponseEntity.ok().body(ApiUtils.success(userEmail));
+		}
+
+		// 이메일 보내기 (임시 비밀번호 전송)
+		@PostMapping("/send-email")
+		@ResponseBody
+		public ResponseEntity<?> sendEmail(SendMailDto sendEmailDto){
+
+			if (sendEmailDto.getEmail() == null || sendEmailDto.getEmail().isEmpty()){
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiUtils.error("이메일을 입력해주세요.", HttpStatus.BAD_REQUEST));
+			}
+			String userEmail = this.userService.emailSearch(sendEmailDto.getEmail());
+			if (userEmail == null){
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiUtils.error("존재하지 않은 이메일입니다.", HttpStatus.BAD_REQUEST));
+			}
+			MailDto mailDto =  this.userService.sendEail(sendEmailDto);
+			this.userService.mailSend(mailDto);
+
+			return ResponseEntity.ok().body(ApiUtils.success(userEmail));
+		}
 	
 
 }

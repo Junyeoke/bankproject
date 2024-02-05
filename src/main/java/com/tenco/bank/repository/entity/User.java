@@ -15,6 +15,7 @@ public class User {
 	private Integer id;
 	private String username;
 	private String fullname;
+	private String email;
 	private String password;
 	private Timestamp createdAt;
 	private String originFileName;

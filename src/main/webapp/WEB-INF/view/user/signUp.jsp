@@ -20,6 +20,10 @@
     <label for="fullname">fullname:</label>
     <input type="text" name="fullname" class="form-control" placeholder="Enter fullname" id="fullname">
   </div>
+  <div class="form-group">
+    <label for="email">email:</label>
+    <input type="text" name="email" class="form-control" placeholder="Enter email" id="email">
+  </div>
    <div class="custom-file">
     <input type="file" class="custom-file-input" id="customFile" name="customFile">
     <label class="custom-file-label" for="customFile">Choose file</label>
