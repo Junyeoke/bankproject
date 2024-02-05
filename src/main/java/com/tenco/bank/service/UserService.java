@@ -103,6 +103,18 @@ public class UserService {
 		return this.userRepository.findByNameToEmail(findUserInfoDTO.getUsername());
 	}
 	
+	// 회원 이름, 전화번호를 이용해서 이메일 찾기
+		public String userEmail(@RequestParam String username){
+
+			String userEmail = this.userRepository.findByMail(username);
+
+			if (userEmail == null){
+				throw new CustomRestfulException("이메일이 존재하지 않습니다.", HttpStatus.BAD_REQUEST);
+			}
+
+			return userEmail;
+		}
+	
 
 	//랜덤함수로 임시비밀번호 만들기
 	public String tempPassword(){
@@ -135,7 +147,7 @@ public class UserService {
 		
 		
 		// 이메일 보내기 (이메일 작성 후 ~ 임시 비밀번호로 회원 비밀번호 업데이트)
-		public MailDto sendEail(SendMailDto sendEmailDto){
+		public MailDto sendEmail(SendMailDto sendEmailDto){
 			String pw = tempPassword(); // 임시 비밀번호 생성
 			MailDto maildto = new MailDto();
 			maildto.setAddress(sendEmailDto.getEmail());

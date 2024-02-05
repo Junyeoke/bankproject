@@ -27,7 +27,7 @@
 		<div id="passwordScreen" style="display: none;">
 			<div class="k_form_group">
 				<label class="k_input_label">이메일</label><br> <input type="text"
-					class="form-control" name="userEmail" id="userEmail"><br>
+					class="form-control" name="email" id="email"><br>
 				<p id="userEmailCkeck"></p>
 			</div>
 			<div class="l_email_info">
@@ -70,23 +70,25 @@
 <!----------------------------------- 라디오 버튼 --------------------------------------------->
 <!--------------------------------- 회원 이메일 찾기 ------------------------------------------->
 <script>
-	$(document).ready(function() {
-		$("#findEmail").click(function() {
-			$.ajax({
-				url : "/user/find-email",
-				type : "post",
-				data : {
-					"username" : $("#username").val(),
-				},
-				success : function(response) {
-					alert("회원님의 이메일은 " + response.response + ' 입니다.');
-				},
-				error : function(response) {
-					alert(response.responseJSON.error.message);
-				}
-			});
-		})
-	});
+// 회원 이메일 찾기
+$(document).ready(function(){
+    $("#findEmail").click(function(){
+        console.log("진입확인")
+       
+        $.ajax({
+            url : "/user/find-email",
+            type : "post",
+            data : {"username" : $("#username").val()},
+            success : function(response) {
+                alert("회원님의 이메일은 " + response.response + ' 입니다.');
+                
+            },
+            error: function (){
+                alert("에러");
+            }
+        });
+    })
+});
 </script>
 <!---------------------------------- 회원 이메일 찾기 ------------------------------------------->
 <!--------------------------------- 임시 비밀번호 발송 ----------------------------------------->
@@ -98,7 +100,7 @@
 				url : "/user/send-email",
 				type : "post",
 				data : {
-					"email" : $("#userEmail").val()
+					"email" : $("#email").val()
 				},
 				success : function(response) {
 					console.log("여기" + response.response + "여기");

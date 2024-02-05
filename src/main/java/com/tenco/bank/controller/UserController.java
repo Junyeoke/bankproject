@@ -26,8 +26,6 @@ import com.tenco.bank.repository.entity.User;
 import com.tenco.bank.service.UserService;
 import com.tenco.bank.utils.ApiUtils;
 import com.tenco.bank.utils.Define;
-
-
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -176,7 +174,6 @@ public class UserController {
 		return "user/findUser";
 	}
 	
-	
 	// 이메일 찾기
 		@PostMapping("/find-email")
 		@ResponseBody
@@ -188,12 +185,13 @@ public class UserController {
 			if(findUserInfoDTO.getUsername() == null || findUserInfoDTO.getUsername().isEmpty()) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiUtils.error("이름을 입력해주세요.", HttpStatus.BAD_REQUEST));
 			}
-			
+		
 			// 이메일이 존재하지 않은 상태 유효성 검사
 			if(email == null) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiUtils.error("이메일이 존재하지 않습니다.", HttpStatus.BAD_REQUEST));
 			}
-			String userEmail = this.userService.userName(findUserInfoDTO.getUsername());
+			String userEmail = this.userService.userEmail(findUserInfoDTO.getUsername());
+			System.out.println("이메일" + userEmail);
 
 			return ResponseEntity.ok().body(ApiUtils.success(userEmail));
 		}
@@ -207,10 +205,12 @@ public class UserController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiUtils.error("이메일을 입력해주세요.", HttpStatus.BAD_REQUEST));
 			}
 			String userEmail = this.userService.emailSearch(sendEmailDto.getEmail());
+			
+			System.out.println("유저이메일" + userEmail);
 			if (userEmail == null){
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiUtils.error("존재하지 않은 이메일입니다.", HttpStatus.BAD_REQUEST));
 			}
-			MailDto mailDto =  this.userService.sendEail(sendEmailDto);
+			MailDto mailDto =  this.userService.sendEmail(sendEmailDto);
 			this.userService.mailSend(mailDto);
 
 			return ResponseEntity.ok().body(ApiUtils.success(userEmail));
