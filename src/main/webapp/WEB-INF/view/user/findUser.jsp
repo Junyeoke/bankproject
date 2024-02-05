@@ -96,6 +96,10 @@ $(document).ready(function(){
 	$(document).ready(function() {
 		$("#sendPassword").click(function() {
 			console.log("진입 확인~");
+			
+			  // 디버그용
+	        var emailValue = $("#email").val();
+	        console.log("Email value: " + emailValue);
 			$.ajax({
 				url : "/user/send-email",
 				type : "post",
