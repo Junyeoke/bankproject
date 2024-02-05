@@ -15,9 +15,17 @@
 						</c:otherwise>
 					</c:choose>
 				</h6>
-
-				<div class="m--profile" style="border-radius: 5px"></div>
-
+				
+				<!-- 로그인 여부에 따라 코드 추가하기 -->
+				<c:choose>
+				<c:when test="${principal != null}">
+				<img class="m--profile" alt="" src="${principal.setupUserImage()}"  style="border-radius: 5px">
+				</c:when>
+				<c:otherwise>
+				<div class="m--profile"></div>
+				</c:otherwise>
+				</c:choose>
+				
 				<div class="card mb-5 mt-3" style="width: auto;">
 					<div class="card-header">바로가기</div>
 					<ul class="list-group list-group-flush flex-column">

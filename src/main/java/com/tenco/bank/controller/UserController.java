@@ -1,6 +1,9 @@
 package com.tenco.bank.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tenco.bank.dto.SignInFormDto;
 import com.tenco.bank.dto.SignUpFormDto;
@@ -47,6 +51,8 @@ public class UserController {
 	@PostMapping("/sign-up")
 	public String signProc(SignUpFormDto dto) {
 		
+		System.out.println("dto : " + dto.toString());
+		System.out.println(dto.getCustomFile().getOriginalFilename());
 		// 1. 인증검사 x
 		// 2. 유효성 검사
 		if(dto.getUsername() == null || dto.getUsername().isEmpty()) {
@@ -61,6 +67,44 @@ public class UserController {
 		if(dto.getFullname() == null || dto.getFullname().isEmpty()) {
 			throw new CustomRestfulException(Define.ENTER_YOUR_FULLNAME, 
 					HttpStatus.BAD_REQUEST);
+		}
+		
+		// 파일업로드 처리
+		MultipartFile file = dto.getCustomFile();
+		if(file.isEmpty() == false) { 
+			// 사용자가 이미지를 넣었다면 기능 구현
+			// 파일 사이즈 체크
+			// 20MB 
+			if(file.getSize() > Define.MAX_FILE_SIZE) {
+				throw new CustomRestfulException("파일 크기는 20MB 이상 클 수 없습니다.", HttpStatus.BAD_REQUEST);
+			}
+			
+			// 서버 컴퓨터에 파일을 넣을 디렉토리가 있는지 검사
+			String saveDirectory = Define.UPLOAD_FILE_DERECTORY;
+			// 폴더가 없다면 오류 발생(파일생성시)
+			File dir = new File(saveDirectory);
+			if(dir.exists() == false) {
+				dir.mkdir(); // 폴더가 없으면 폴더 생성
+			}
+			
+			// 파일 이름 (중복처리 예방)
+			UUID uuid = UUID.randomUUID();
+			String fileName = uuid + "_" + file.getOriginalFilename();
+			System.out.println("fileName : " + fileName);
+			
+			String uploadPath 
+			= Define.UPLOAD_FILE_DERECTORY + File.separator + fileName;
+			File destination = new File(uploadPath);
+			
+			try {
+				file.transferTo(destination);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			// 객체 상태 변경(insert 처리)
+			dto.setOriginFileName(file.getOriginalFilename()); // 사용자가 입력한 파일명
+			dto.setUploadFileName(fileName);
 		}
 		
 		userService.createUser(dto);

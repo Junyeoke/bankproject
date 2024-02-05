@@ -19,6 +19,15 @@
 
 			<div class="section-title">
 				<h2>My Bank :: 차세대 은행 관리 페이지</h2>
+				<c:choose>
+						<c:when test="${principal != null}">
+							<div class="alert alert-secondary" style="text-align: center;">
+								반갑습니다, ${principal.username}님! </br> 중단기 심화 - 은행 관리 시스템 예제
+							</div>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 			</div>
 
 			<div class="row content">

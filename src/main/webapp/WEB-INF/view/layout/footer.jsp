@@ -5,5 +5,7 @@
             <div class="container"><p class="m-0 text-center text-white">2024 최첨단 은행 관리시스템</p></div>
         </footer>
 
+
+<script src="../../../../resources/static/js/main.js"></script>
 </body>
 </html>

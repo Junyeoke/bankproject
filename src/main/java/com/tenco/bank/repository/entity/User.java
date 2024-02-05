@@ -17,4 +17,12 @@ public class User {
 	private String fullname;
 	private String password;
 	private Timestamp createdAt;
+	private String originFileName;
+	private String uploadFileName;
+	
+	// 사용자가 회원가입시 이미지를 넣는 경우, 넣지 않는 경우
+	public String setupUserImage() {
+		return uploadFileName == null ? 
+				"https://picsum.photos/id/1/350" : "/images/upload/" + uploadFileName;
+	}
 }
