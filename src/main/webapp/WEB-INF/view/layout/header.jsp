@@ -35,25 +35,23 @@
 
 		<!-- Links -->
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/home">홈으로</a>
-			</li>
+			<li class="nav-item"><a class="nav-link" href="/home">홈으로</a></li>
+			<li class="dropdown"><a href="#"><span>은행업무</span> <i
+					class="bi bi-chevron-down"></i></a>
+				<ul>
+					<li><a class="dropdown-item" href="/account/save">계좌 생성</a></li>
 
 
-			<!-- Dropdown -->
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="/account/list"
-				id="navbardrop" data-toggle="dropdown"> 은행업무 </a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="/account/save">계좌 생성</a> <a
-						class="dropdown-item" href="/account/list">계좌 목록</a> <a
-						class="dropdown-item" href="/account/withdraw">출금</a> <a
-						class="dropdown-item" href="/account/deposit">입금</a> <a
-						class="dropdown-item" href="/account/transfer">이체</a>
-				</div></li>
+					<li><a class="dropdown-item" href="/account/list">계좌 목록</a></li>
+					<li><a class="dropdown-item" href="/account/withdraw">출금</a></li>
+					<li><a class="dropdown-item" href="/account/deposit">입금</a></li>
+					<li><a class="dropdown-item" href="/account/transfer">이체</a></li>
+				</ul></li>
+
 		</ul>
 
 
-		<div class=" collapse navbar-collapse justify-content-end"
+		<div class=" collapse navbar-collapse justify-content-start"
 			id="collapsibleNavbar">
 			<ul class="navbar-nav">
 
@@ -74,14 +72,7 @@
 
 			</ul>
 		</div>
+
+
+
 	</nav>
-	
-	
-	
-	
-
-	
-
-
-
-	
