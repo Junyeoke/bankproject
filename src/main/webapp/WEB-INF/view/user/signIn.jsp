@@ -21,6 +21,9 @@
   </div>
   <!-- 과제 : 이벤트 전파 속성 - 버블링 뭔가? 캡처링 이란? -->
   <button type="submit" class="btn btn-outline-secondary">로그인</button>
+  <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=2c617de944e126184f4c77cab2d22c93&redirect_uri=http://localhost/user/kakao-callback">
+  	<img alt="" src="/images/kakao_login_small.png" width="75" height="38">
+  </a>
 </form>
 </div>
 	
