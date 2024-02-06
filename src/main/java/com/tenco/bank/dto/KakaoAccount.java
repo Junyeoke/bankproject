@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class KakaoAccount {
 
-    public Boolean profileNicknameNeedsAgreement;
-    public Boolean profileImageNeedsAgreement;
-    public Profile profile;
+	private Boolean profileNicknameNeedsAgreement;
+	private Boolean profileImageNeedsAgreement;
+	private Profile profile;
 
 }

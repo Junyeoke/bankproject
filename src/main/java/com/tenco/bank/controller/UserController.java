@@ -2,6 +2,7 @@ package com.tenco.bank.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition;
 import java.util.UUID;
 
@@ -17,12 +18,19 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tenco.bank.dto.KakaoProfile;
+import com.tenco.bank.dto.NaverProfile;
 import com.tenco.bank.dto.OAuthToken;
 import com.tenco.bank.dto.Profile;
 import com.tenco.bank.dto.SignInFormDto;
@@ -32,7 +40,10 @@ import com.tenco.bank.repository.entity.User;
 import com.tenco.bank.service.UserService;
 import com.tenco.bank.utils.Define;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -183,64 +194,110 @@ public class UserController {
 		params.add("client_id", "2c617de944e126184f4c77cab2d22c93");
 		params.add("redirect_uri", "http://localhost/user/kakao-callback");
 		params.add("code", code);
-		
+
 		// 헤더 + 바디 결합
-		HttpEntity<MultiValueMap<String, String>> reqMsg 
-			= new HttpEntity<>(params, headers1);
-		
-		ResponseEntity<OAuthToken> response = rt1.exchange("https://kauth.kakao.com/oauth/token", 
-				HttpMethod.POST, reqMsg, OAuthToken.class);
-		
+		HttpEntity<MultiValueMap<String, String>> reqMsg = new HttpEntity<>(params, headers1);
+
+		ResponseEntity<OAuthToken> response = rt1.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST,
+				reqMsg, OAuthToken.class);
+
 		// 다시 요청 -- 인증 토큰 -- 사용자 정보 요청
 		RestTemplate rt2 = new RestTemplate();
-		
+
 		// 헤더
 		HttpHeaders headers2 = new HttpHeaders();
 		headers2.add("Authorization", "Bearer " + response.getBody().getAccessToken());
 		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-		
-		
+
 		// 결합 --> 요청
-		HttpEntity<MultiValueMap<String, String>> kakaoInfo
-		 	= new HttpEntity<>(headers2);
-		
-		ResponseEntity<KakaoProfile> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", 
-				HttpMethod.POST, kakaoInfo, KakaoProfile.class);
-;		
-		
+		HttpEntity<MultiValueMap<String, String>> kakaoInfo = new HttpEntity<>(headers2);
+
+		ResponseEntity<KakaoProfile> response2 = rt2.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
+				kakaoInfo, KakaoProfile.class);
+		;
+
 		System.out.println(response.getBody().getAccessToken());
 		System.out.println(response2.getBody());
-		
+
 		KakaoProfile kakaoProfile = response2.getBody();
-		
+
 		// 최초 사용자 판단 여부 -- 사용자 이름(username)존재 여부 확인하기
-		// 우리 사이트 --> 카카오 
-		SignUpFormDto dto = SignUpFormDto.builder()
-							.username("OAuth_" + kakaoProfile.getProperties().getNickname())
-							.fullname("Kakao")
-							.password("asd1234")	// 소셜 로그인 사용자는 패스워드를 받지 않음
-							.build();
-		
+		// 우리 사이트 --> 카카오
+		SignUpFormDto dto = SignUpFormDto.builder().username("OAuth_" + kakaoProfile.getProperties().getNickname())
+				.fullname("Kakao").password("asd1234") // 소셜 로그인 사용자는 패스워드를 받지 않음
+				.build();
+
 		User oldUser = userService.readUserByUserName(dto.getUsername());
 		// null <--
-		if(oldUser == null) {
+		if (oldUser == null) {
 			userService.createUser(dto);
 			oldUser = new User();
 			oldUser.setUsername(dto.getUsername());
 			oldUser.setFullname(dto.getFullname());
-			
+
 		}
 		oldUser.setPassword(null);
-		
+
 		// 사용자 이름이 있다면 - 로그인 처리
 		httpSession.setAttribute(Define.PRINCIPAL, oldUser);
-		
-		
+
 		// 단 최초 요청 사용자라면? => 회원가입 후 로그인 처리!
-		
-		
+
 		return "redirect:/account/list";
 
+	}
+
+	// 네이버
+	@GetMapping("/naver-callback")
+	//@ResponseBody
+	public String naverLogin(@RequestParam String code, @RequestParam String state) {
+
+		RestTemplate rt = new RestTemplate();
+
+		URI uri = UriComponentsBuilder.fromUriString("https://nid.naver.com").path("/oauth2.0/token")
+				.queryParam("grant_type", "authorization_code").queryParam("client_id", "hVlPdCIutDDpu0e0tAA1")
+				.queryParam("client_secret", "yIdO76MPi9").queryParam("code", code).queryParam("state", state).encode()
+				.build().toUri();
+
+		ResponseEntity<NaverProfile> response = rt.getForEntity(uri, NaverProfile.class);
+
+		RestTemplate rt2 = new RestTemplate();
+		HttpHeaders headers2 = new HttpHeaders();
+		String token = "AAAAO0tm52jusoNAYGpoNEeYNG2qDcOFaxVV1C7hTmIZS8_WewcIREaHuHUSlb2KMEZHONUSbi1SKOC5lW4A39X68U4";
+		headers2.add("Authorization", "Bearer " + token);
+
+		HttpEntity<MultiValueMap<String, String>> naverInfo = new HttpEntity<>(headers2);
+
+		ResponseEntity<NaverProfile> response2 = rt2.exchange("https://openapi.naver.com/v1/nid/me", HttpMethod.POST,
+				naverInfo, NaverProfile.class);
+
+		NaverProfile naverProfile = response2.getBody();
+		
+		System.out.println(naverProfile.getName());
+
+		// 최초 사용자 판단 여부 -- 사용자 이름(username)존재 여부 확인하기
+		// 우리 사이트 --> 네이버
+		SignUpFormDto dto = SignUpFormDto.builder().username("Naver_" + naverProfile.getName())
+				.fullname("Naver").password("asd1234") // 소셜 로그인 사용자는 패스워드를 받지 않음
+				.build();
+
+		User oldUser = userService.readUserByUserName(dto.getUsername());
+		// null <--
+		if (oldUser == null) {
+			userService.createUser(dto);
+			oldUser = new User();
+			oldUser.setUsername(dto.getUsername());
+			oldUser.setFullname(dto.getFullname());
+
+		}
+		oldUser.setPassword(null);
+
+		// 사용자 이름이 있다면 - 로그인 처리
+		httpSession.setAttribute(Define.PRINCIPAL, oldUser);
+
+		// 단 최초 요청 사용자라면? => 회원가입 후 로그인 처리!
+
+		return "redirect:/account/list";
 	}
 
 }
