@@ -8,10 +8,11 @@ import lombok.Data;
 
 @Data
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class NaverProfile {
+public class Response {
 
-    public String resultcode;
-    public String message;
-    public Response response;
+    public String id;
+    public String nickname;
+    public String profileImage;
+    public String name;
 
 }

@@ -260,9 +260,10 @@ public class UserController {
 				.build().toUri();
 
 		ResponseEntity<NaverProfile> response = rt.getForEntity(uri, NaverProfile.class);
-
+		log.info(response.getBody().toString());
 		RestTemplate rt2 = new RestTemplate();
 		HttpHeaders headers2 = new HttpHeaders();
+		
 		String token = "AAAAO0tm52jusoNAYGpoNEeYNG2qDcOFaxVV1C7hTmIZS8_WewcIREaHuHUSlb2KMEZHONUSbi1SKOC5lW4A39X68U4";
 		headers2.add("Authorization", "Bearer " + token);
 
@@ -273,11 +274,11 @@ public class UserController {
 
 		NaverProfile naverProfile = response2.getBody();
 		
-		System.out.println(naverProfile.getName());
+		System.out.println(naverProfile.getResponse().getName());
 
 		// 최초 사용자 판단 여부 -- 사용자 이름(username)존재 여부 확인하기
 		// 우리 사이트 --> 네이버
-		SignUpFormDto dto = SignUpFormDto.builder().username("Naver_" + naverProfile.getName())
+		SignUpFormDto dto = SignUpFormDto.builder().username("Naver_" + naverProfile.getResponse().getName())
 				.fullname("Naver").password("asd1234") // 소셜 로그인 사용자는 패스워드를 받지 않음
 				.build();
 
