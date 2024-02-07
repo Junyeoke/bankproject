@@ -17,62 +17,75 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+
+
+
+<link href="/css/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
 <!-- 외부 스타일 시트 가져오기 -->
 <link rel="stylesheet" href="/css/styles.css">
 <style>
 </style>
 </head>
 <body>
-	<div class="jumbotron text-center banner--img" style="margin-bottom: 0">
-		<h1>my bank</h1>
-		<p>최첨단 은행 관리 시스템</p>
-	</div>
+	<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top">
+		<div class="container d-flex align-items-center ">
+			<!-- Modified class added: justify-content-between -->
+			<div style="margin-right: 80px">
+				<h1 class="logo">
+					<a href="/home">GREEN Bank</a>
+				</h1>
+			</div>
+			<nav id="navbar" class="navbar">
 
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<!-- Brand -->
-		<a class="navbar-brand" href="/home">MyBank :: 최첨단 은행 관리시스템</a>
 
-
-		<!-- Links -->
-		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/home">홈으로</a></li>
-			<li class="dropdown"><a href="#"><span>은행업무</span> <i
-					class="bi bi-chevron-down"></i></a>
 				<ul>
-					<li><a class="dropdown-item" href="/account/save">계좌 생성</a></li>
+					<li><a class="nav-link scrollto" href="/home">Home</a></li>
+					<li><a class="nav-link scrollto" href="/qna">QNA</a></li>
+					<li class="dropdown"><a href="#"><span>Service</span> <i
+							class="bi bi-chevron-down"></i></a>
+						<ul>
+							<li><a href="/account/save">계좌 생성</a></li>
+							<li><a href="/account/list">계좌 목록</a></li>
+							<li><a href="/account/withdraw">출금</a></li>
+							<li><a href="/account/deposit">입금</a></li>
+							<li><a href="/account/transfer">이체</a></li>
+						</ul></li>
+					<div style="margin-left: 300px">
+						<ul class="navbar">
+							<c:choose>
+								<c:when test="${principal != null}">
+
+									<li><a class="getstarted scrollto" href="/user/logout">로그아웃</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a class="getstarted scrollto" href="/user/sign-in">로그인</a></li>
+									<li><a class="getstarted scrollto" href="/user/sign-up">회원가입</a></li>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+					</div>
+
+				</ul>
+				<i class="bi bi-list mobile-nav-toggle" style="margin-left: 150px;"></i>
 
 
-					<li><a class="dropdown-item" href="/account/list">계좌 목록</a></li>
-					<li><a class="dropdown-item" href="/account/withdraw">출금</a></li>
-					<li><a class="dropdown-item" href="/account/deposit">입금</a></li>
-					<li><a class="dropdown-item" href="/account/transfer">이체</a></li>
-				</ul></li>
-
-		</ul>
+			</nav>
+			<!-- .navbar -->
 
 
-		<div class=" collapse navbar-collapse justify-content-start"
-			id="collapsibleNavbar">
-			<ul class="navbar-nav">
 
-				<c:choose>
-					<c:when test="${principal != null}">
-						<li class="nav-item"><a class="nav-link" href="/user/logout"><button
-									type="button" class="btn btn-outline-light">로그아웃</button></a></li>
-					</c:when>
 
-					<c:otherwise>
-						<li class="nav-item"><a class="nav-link" href="/user/sign-in"><button
-									type="button" class="btn btn-outline-light">로그인</button></a></li>
-						<li class="nav-item"><a class="nav-link" href="/user/sign-up"><button
-									type="button" class="btn btn-outline-light">회원가입</button></a></li>
-					</c:otherwise>
-
-				</c:choose>
-
-			</ul>
 		</div>
+	</header>
 
-
-
-	</nav>
+	<!-- End Header -->

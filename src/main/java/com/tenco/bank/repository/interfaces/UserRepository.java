@@ -2,6 +2,7 @@ package com.tenco.bank.repository.interfaces;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.tenco.bank.dto.SignUpFormDto;

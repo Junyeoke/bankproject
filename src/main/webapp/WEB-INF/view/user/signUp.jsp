@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
  <!-- haeder.jsp -->
     <%@ include file="/WEB-INF/view/layout/header.jsp" %>
+     <div class="jumbotron text-center " style="margin-bottom: 0; background-color: #37517e; color: white;">
+		
+		
+	</div>
     
 <div class="container p-5 col-sm-8">
 <div class= "bg-light p-md-5">

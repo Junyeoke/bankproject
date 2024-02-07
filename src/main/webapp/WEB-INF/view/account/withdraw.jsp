@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
  <!-- haeder.jsp -->
     <%@ include file="/WEB-INF/view/layout/header.jsp" %>
+<div class="jumbotron text-center" style="margin-bottom: 0; background-color: #37517e; color: white; height:200px;">
+		<h1 class="mt-4">출금하기</h1>
+		
+	</div>
     <%@ include file="/WEB-INF/view/layout/sidebar.jsp"%>
     
 <div class="col-sm-8">

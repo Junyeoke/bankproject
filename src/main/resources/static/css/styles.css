@@ -14,6 +14,8 @@
   	height: 200px;
 }
 
+
+
 /**
 * Template Name: Arsha
 * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -126,7 +128,7 @@ h6 {
 #header {
   transition: all 0.5s;
   z-index: 997;
-  padding: 15px 0;
+  padding: 10px 0;
 }
 
 #header.header-scrolled,
@@ -162,9 +164,11 @@ h6 {
   padding: 0;
 }
 
+
+
 .navbar ul {
   margin: 0;
-  padding: 0;
+  padding: 10;
   display: flex;
   list-style: none;
   align-items: center;
@@ -179,7 +183,7 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0 10px 10px;
+  padding: 10px 20px 10px 10px;
   font-size: 15px;
   font-weight: 500;
   color: rgba(255,255,255,.5);
@@ -892,7 +896,7 @@ section {
 }
 
 .services .icon-box:hover {
-  transform: translateY(-30px);
+  transform: translateY(-20px);
 }
 
 .services .icon-box:hover h4 a {
