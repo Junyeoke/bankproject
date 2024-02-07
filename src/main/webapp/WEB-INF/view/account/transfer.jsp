@@ -10,8 +10,7 @@
     
 <div class="col-sm-8">
 <div class= "bg-light p-md-5">
-	<h2>이체 페이지(인증)</h2>
-	<h5>어서오세요, 환영합니다.</h5>
+	
 	<form action="/account/transfer" method="post">
   <div class="form-group">
     <label for="amount">이체금액:</label>

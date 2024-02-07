@@ -10,8 +10,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>더 나은 은행 솔루션을 경험하세요</h1>
-          <h2>MyBank는 손쉬운 은행업무들을 제공합니다.</h2>
+          <h1>더 나은 은행  <br/>GreenBank입니다.</h1>
+          <h2>그린은행은 손쉬운 은행업무들을 제공합니다.</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
             <a href="/account/save" class="btn-get-started scrollto">계좌개설하기</a>
           </div>
@@ -33,34 +33,7 @@
 	</section>
 	<!-- End Cliens Section -->
 
-	<!-- ======= About Us Section ======= -->
-	<section id="about" class="about">
-		<div class="container" data-aos="fade-up">
-
-			<div class="section-title">
-				<h2>My Bank :: 차세대 은행 관리 페이지</h2>
-				
-			</div>
-
-			<div class="row content">
-				<div class="col-lg-6">
-					<p>차세대 은행 관리페이지에 오신것을 환영합니다!</p>
-					<ul>
-						<li><i class="ri-check-double-line"></i>✅ 계좌 생성 기능 구현</li>
-						<li><i class="ri-check-double-line"></i>✅ 생성한 계좌로 계좌간 송금 기능
-							구현</li>
-						<li><i class="ri-check-double-line"></i>✅ 입금, 송금, 입출금 조회 기능
-							구현</li>
-					</ul>
-				</div>
-				<div class="col-lg-6 pt-4 pt-lg-0">
-					<p>계좌를 생성하여 차세대 은행 관리 기술을 경험하세요!</p>
-					
-				</div>
-			</div>
-
-		</div>
-	</section>
+	
 	<!-- End About Us Section -->
 
 

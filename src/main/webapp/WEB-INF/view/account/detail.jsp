@@ -10,8 +10,6 @@
 <div class="col-sm-8">
 	<div class="bg-light p-md-5">
 
-		<h2>계좌 상세보기(인증)</h2>
-		<h5>어서오세요 환영합니다.</h5>
 		</hr>
 		</br>
 		<div class="bg-light mb-4">

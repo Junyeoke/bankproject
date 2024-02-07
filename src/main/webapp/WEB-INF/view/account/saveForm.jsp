@@ -11,26 +11,25 @@
 <div class="container col-sm-8">
 	<div class="bg-light p-md-5">
 
-		<h2>계좌 생성 페이지(인증)</h2>
-		<h5>어서오세요, 환영합니다.</h5>
+
 		<form action="/account/save" method="post">
 			<div class="form-group">
-				<label for="number">계좌번호:</label> <input type="text" name="number"
+				<label for="number">사용하실 계좌번호</label> <input type="text" name="number"
 					class="form-control" placeholder="Enter number" id="number"
 					value="5555">
 			</div>
 			<div class="form-group">
-				<label for="pwd">계좌 비밀번호:</label> <input type="password"
+				<label for="pwd">사용하실 계좌비밀번호</label> <input type="password"
 					name="password" class="form-control" placeholder="Enter password"
 					id="pwd" value="1234">
 			</div>
 			<div class="form-group">
-				<label for="balance">입금 금액:</label> <input type="text"
+				<label for="balance">초기 입금 금액</label> <input type="text"
 					name="balance" class="form-control" placeholder="Enter balance"
 					id="balance" value="2000">
 			</div>
 
-			<button type="submit" class="btn btn-outline-secondary">계좌 생성</button>
+			<button type="submit" class="btn btn-outline-secondary">계좌 생성하기</button>
 		</form>
 	</div>
 

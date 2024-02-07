@@ -32,23 +32,22 @@
 	crossorigin="anonymous">
 <!-- 외부 스타일 시트 가져오기 -->
 <link rel="stylesheet" href="/css/styles.css">
+
 <style>
 </style>
 </head>
 <body>
 	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top">
-		<div class="container d-flex align-items-center ">
-			<!-- Modified class added: justify-content-between -->
-			<div style="margin-right: 80px">
-				<h1 class="logo">
-					<a href="/home">GREEN Bank</a>
-				</h1>
-			</div>
-			<nav id="navbar" class="navbar">
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
 
+      <h1 class="logo me-auto"><a href="/home">GREEN Bank</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-				<ul>
+      <nav id="navbar" class="navbar">
+        
+       <ul>
 					<li><a class="nav-link scrollto" href="/home">Home</a></li>
 					<li><a class="nav-link scrollto" href="/qna">QNA</a></li>
 					<li class="dropdown"><a href="#"><span>Service</span> <i
@@ -87,5 +86,11 @@
 
 		</div>
 	</header>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
 
 	<!-- End Header -->

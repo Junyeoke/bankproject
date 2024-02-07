@@ -11,9 +11,7 @@
 <div class="col-sm-8">
 	<div class="bg-light p-md-5">
 
-		<h2>나의 계좌 목록</h2>
-		<h5>어서오세요 환영합니다.</h5>
-		<!--  만약 accountList null or not null -->
+		
 		<div class="bg-light">
 			<c:choose>
 				<c:when test="${accountList != null}">
