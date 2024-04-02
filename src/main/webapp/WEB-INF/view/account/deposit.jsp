@@ -14,12 +14,12 @@
 			<div class="form-group">
 				<label for="amount">입금금액:</label> <input type="text" name="amount"
 					class="form-control" placeholder="Enter amount" id="amount"
-					value="1000">
+					>
 			</div>
 			<div class="form-group">
 				<label for="dAccountNumber">입금 계좌번호:</label> <input type="text"
 					name="dAccountNumber" class="form-control" placeholder="입금 계좌번호 입력"
-					id="dAccountNumber" value="1111">
+					id="dAccountNumber" >
 			</div>
 
 			

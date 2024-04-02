@@ -16,17 +16,17 @@
 			<div class="form-group">
 				<label for="number">사용하실 계좌번호</label> <input type="text" name="number"
 					class="form-control" placeholder="Enter number" id="number"
-					value="5555">
+					>
 			</div>
 			<div class="form-group">
 				<label for="pwd">사용하실 계좌비밀번호</label> <input type="password"
 					name="password" class="form-control" placeholder="Enter password"
-					id="pwd" value="1234">
+					id="pwd" >
 			</div>
 			<div class="form-group">
 				<label for="balance">초기 입금 금액</label> <input type="text"
 					name="balance" class="form-control" placeholder="Enter balance"
-					id="balance" value="2000">
+					id="balance" >
 			</div>
 
 			<button type="submit" class="btn btn-outline-secondary">계좌 생성하기</button>

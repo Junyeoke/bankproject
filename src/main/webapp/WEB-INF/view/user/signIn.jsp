@@ -19,9 +19,9 @@
 	<h2>Login</h2>
 	<form method="post" action="/user/sign-in" id="login-form">
 		<input type="text" name="username" class="form-control"
-			placeholder="Enter username" id="username" value="주녘"> <input
+			placeholder="Enter username" id="username" > <input
 			type="password" name="password" class="form-control"
-			placeholder="Enter password" id="pwd" value="1234"> <label
+			placeholder="Enter password" id="pwd" > <label
 			for="remember-check"> <input type="checkbox"
 			id="remember-check">아이디 저장하기
 		</label>
